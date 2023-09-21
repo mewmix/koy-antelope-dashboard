@@ -1,0 +1,84 @@
+/* styles.css */
+
+/* Reset some default browser styles */
+body, h1, canvas, button, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a background color to the body */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the header */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Style the main sections */
+.chart-section, .crypto-section {
+    background-color: #fff;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the charts */
+.crypto-chart {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+}
+
+/* Style the balance text */
+.crypto-balance {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+/* Style the compare button */
+.compare-button {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.compare-button:hover {
+    background-color: #555;
+}
+
+/* Style the most deposited text */
+.most-deposited {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+/* Add styles in your styles.css file */
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 10px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
