@@ -54,16 +54,16 @@ async function fetchAllData() {
 
         // Calculate the total USD value of all cryptocurrencies deposited
         const totalUSDValue = eosTotal + waxTotal + telosTotal;
-
+        
         // Create a new chart comparing the cryptocurrencies in USD
         createUSDComparisonChart("usd-comparison-chart", eosTotal, waxTotal, telosTotal);
 
         // Compare deposited values and update the most deposited cryptocurrency
         const mostDepositedCrypto = compareDeposits(eosTotal, waxTotal, telosTotal);
-        document.getElementById("most-deposited").textContent = `Most Deposited: ${mostDepositedCrypto}`;
+        document.getElementById("most-deposited").textContent = `Pack Leader: ${mostDepositedCrypto}`;
 
         // Update the total USD value text
-        document.getElementById("total-usd-value").textContent = `Total USD Value: $${totalUSDValue.toFixed(2)}`;
+        document.getElementById("total-usd-value").textContent = `$${totalUSDValue.toFixed(2)}`;
 
         // Update the total USD value in the "Total Deposits" section
         document.getElementById("total-usd-amount").textContent = totalUSDValue.toFixed(2);
