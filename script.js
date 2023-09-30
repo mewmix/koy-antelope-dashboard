@@ -115,6 +115,47 @@ async function fetchBalance(cryptoName, tokenCode, tokenSymbol, elementId, rpcEn
     
 }
 
+async function fetchUTXBalance(cryptoName, tokenCode, tokenSymbol, elementId, rpcEndpoint, chartId) {
+    const accountName = "koynetworksw";
+
+    const requestData = {
+        code: tokenCode,
+        account: accountName,
+        symbol: tokenSymbol
+    };
+
+    try {
+        const response = await fetch(rpcEndpoint, {
+            method: "POST",
+            body: JSON.stringify(requestData)
+        });
+
+        const data = await response.json();
+
+        // Check if the data array has a length greater than 0
+        if (data.length > 0) {
+            // Extract the balance in the correct format for UTX
+            const balanceText = data[0];
+            const utx_balance = parseFloat(balanceText.replace(/[^0-9.]/g, '')); // Remove non-numeric characters
+
+            // Create a chart
+            createChart(chartId, cryptoName, utx_balance);
+
+            // Update the balance text with UTX amount
+            document.getElementById(elementId).textContent = `${cryptoName} Balance: ${utx_balance.toFixed(0)} ${tokenSymbol}`;
+        } else {
+            throw new Error(`No data returned for ${cryptoName} balance`);
+        }
+    } catch (error) {
+        console.error(`Error fetching ${cryptoName} balance: ${error}`);
+        document.getElementById(elementId).textContent = `${cryptoName} Balance: Error`;
+        return 0;
+    }
+}
+
+
+
+
 function createUSDComparisonChart(chartId, eosTotal, waxTotal, telosTotal) {
     const ctx = document.getElementById(chartId).getContext("2d");
 
@@ -203,4 +244,31 @@ document.querySelectorAll('nav ul li a').forEach((link) => {
     const targetId = e.target.getAttribute('href').substring(1);
     document.getElementById(targetId).style.display = 'block';
   });
+});
+
+async function displayUTXBalance() {
+    try {
+        // Fetch UTX balance
+        const utxTotal = await fetchUTXBalance("UTX", "eosio.token", "UTX", "utx-balance", "https://api.uxnetwork.io/v1/chain/get_currency_balance", "utx-chart");
+
+        // Display the UTX balance
+        const utxBalanceElement = document.getElementById("utx-balance");
+
+        if (utxTotal !== null && utxTotal !== undefined) {
+            // Format UTX balance with two decimal places
+            const formattedUtxTotal = utxBalanceElement.toFixed(2);
+
+        } else {
+            // Handle the case where utxTotal is null or undefined
+        }
+    } catch (error) {
+        // Handle any errors that occur during the fetch
+    }
+}
+
+
+
+// Call the displayUTXBalance function when the DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    displayUTXBalance();
 });
